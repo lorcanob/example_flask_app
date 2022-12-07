@@ -1,0 +1,1 @@
+python train.py --img 640 --batch 64 --epochs 500 --data tongue.yaml --weights yolov5s.pt --hyp runs/evolve/exp7/hyp_evolve.yaml --project adam --optimizer Adam --cache

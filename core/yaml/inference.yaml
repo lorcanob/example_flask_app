@@ -1,0 +1,41 @@
+openapi: 3.0.0
+tags:
+  - name: Inference
+get:
+  
+  description: None
+
+parameters:
+  - name: image
+    in: base64 string
+    type: string
+    required: true
+    
+responses:
+  200:
+    description: Successful response
+    schema:
+      id: response_dict
+      properties:
+        success:
+          type: boolean
+          description: |
+            Indicates successful tongue detection and segment categorisation
+            舌の検出とセグメントの分類に成功したことを示す。
+          example: True
+        categories:
+          type: list
+          description: | 
+            Length 49 list of the row-by-row TCI scores for each sub-image
+            長さ 49 各副画像の行ごとの TCI スコアのリスト
+          example: ['5', '4', '1', '2', ...]
+        image_segments:
+          type: string
+          description: |
+            A base64 encoded image string of the object detected crop with a lattice overlay of each sub-image TCI
+            各副画像TCIを格子状に重ねたオブジェクト検出クロップのBase64符号化画像文字列
+          example: 'data:image/png;base64,...'
+  400:
+    description: Bad Request
+  500:
+    description: Internal Server Error

@@ -1,0 +1,69 @@
+weights: yolov5s.pt
+cfg: ''
+data: tongue.yaml
+hyp:
+  lr0: 0.01202
+  lrf: 0.01
+  momentum: 0.98
+  weight_decay: 0.0005
+  warmup_epochs: 3.0
+  warmup_momentum: 0.59154
+  warmup_bias_lr: 0.09358
+  box: 0.04832
+  cls: 0.50027
+  cls_pw: 1.025
+  obj: 0.95484
+  obj_pw: 0.914
+  iou_t: 0.2
+  anchor_t: 4.3853
+  fl_gamma: 0.0
+  hsv_h: 0.01799
+  hsv_s: 0.60621
+  hsv_v: 0.38117
+  degrees: 0.0
+  translate: 0.12301
+  scale: 0.64142
+  shear: 0.0
+  perspective: 0.0
+  flipud: 0.0
+  fliplr: 0.5
+  mosaic: 1.0
+  mixup: 0.0
+  copy_paste: 0.0
+  anchors: 2.8056
+epochs: 500
+batch_size: 64
+imgsz: 640
+rect: false
+resume: false
+nosave: false
+noval: false
+noautoanchor: false
+noplots: false
+evolve: null
+bucket: ''
+cache: ram
+image_weights: false
+device: ''
+multi_scale: false
+single_cls: false
+optimizer: SGD
+sync_bn: false
+workers: 8
+project: runs\train
+name: exp
+exist_ok: false
+quad: false
+cos_lr: false
+label_smoothing: 0.0
+patience: 100
+freeze:
+- 0
+save_period: -1
+seed: 0
+local_rank: -1
+entity: null
+upload_dataset: false
+bbox_interval: -1
+artifact_alias: latest
+save_dir: runs\train\exp16

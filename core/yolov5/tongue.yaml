@@ -4,7 +4,7 @@ val:   ../data/images/val
 test:  ../data/images/test
 
 # Number of classes
-nc: 2
+nc: 1
 
 # Class names 0 - cat, 1 - dog
 names: ['tongue']
