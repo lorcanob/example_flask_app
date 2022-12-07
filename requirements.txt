@@ -1,0 +1,8 @@
+numpy
+requests
+imutils
+matplotlib
+flask
+Pillow
+pdf2image
+opencv-python-headless==4.5.1.48

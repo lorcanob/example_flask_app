@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Link Test</title>
+</head>
+<body>
+    <div>
+        <a href="https://salmon-tree-03f89ab00.1.azurestaticapps.net/scan/new">Scan Deep Link</a>
+    </div>
+
+    <div>
+        <p>Javascript Interface TEST</p>
+        <input type="button" value="Echo" onClick="echoByAndroid('Hello Android!')" />
+        <p id="ret_droid">press Echo button</p>
+        <script type="text/javascript">
+            function echoByAndroid(say) {
+                let ret = Android.echo(say);
+                var returnArea = document.getElementById('ret_droid');
+                returnArea.innerHTML = ret;
+            }
+        </script>
+    </div>
+    <div>
+        <p>Javascript Interface, Scanner(ScanSnap ix1300) TEST</p>
+        <input type="button" value="Scan" onClick="scanByAndroid()" />
+        <p id="ret_scan">press Scan button</p>
+        <div id="scan_img_area">
+        </div>
+        <script type="text/javascript">
+            function onScanCallback(totalCount, cIndex, base64Image) {
+                var returnArea = document.getElementById('ret_scan');
+                returnArea.innerHTML = `receiced image, totalCount: ${totalCount}`;
+
+                var img = document.createElement('img');
+                img.src = base64Image;
+                img.height = 200;
+                img.width = 200;
+                img.alt = `index[${cIndex}]`;
+                document.getElementById('scan_img_area').appendChild(img);
+            }
+            function scanByAndroid() {
+                Android.scan("onScanCallback"); // callback is called per scan
+                var returnArea = document.getElementById('ret_scan');
+                returnArea.innerHTML = "scanning...";
+
+                let parent = document.getElementById('scan_img_area');
+                while (parent.firstChild) {
+                    parent.removeChild(parent.firstChild);
+                }
+            }
+        </script>
+    </div>
+    <div>
+        <p>Javascript Interface, CRCode Printer(QL-800/QL-820NWB) TEST</p>
+        <input type="text" value="input text" id="inputText" maxlength="100" />
+        <input type="button" value="Print" onClick="printQRCodeByAndroid()" />
+        <p id="ret_printQRCode">press Print button</p>
+        <script type="text/javascript">
+            function onPrintQRCodeCallback(err) {
+                var returnArea = document.getElementById('ret_printQRCode');
+                if (null == err) {
+                    returnArea.innerHTML = `QRCode print success.`;
+                } else {
+                    returnArea.innerHTML = `ERROR: ${err}`;
+                }               
+            }
+            function printQRCodeByAndroid() {
+                let text = document.getElementById("inputText").value;
+                Android.printQRcode(text, "onPrintQRCodeCallback");
+                var returnArea = document.getElementById('ret_printQRCode');
+                returnArea.innerHTML = "printing...";
+            }
+        </script>
+    </div>
+    <div>
+        <p>Javascript Interface, RangeOfMotion TEST</p>
+        <input type="button" value="ROM" onClick="romByAndroid()" />
+        <p id="ret_rom">press ROM button</p>
+        <script type="text/javascript">
+            function onROMCallback(json) {
+                const result = JSON.parse(json);
+                const keys = Object.keys(result)
+                keys.forEach(key => {
+                    /**
+                     * keys
+                    LeftExtAbduction
+                    RightInAbduction
+                    RightExtension
+                    LeftExtension
+                    LeftInAbduction
+                    LeftFlexion
+                    RightExtAbduction
+                    RightFlexion
+                    */
+                    console.info(`${key}:${result[key]}`)
+                })
+                var returnArea = document.getElementById('ret_rom');
+                returnArea.innerHTML = json;
+            }
+            function romByAndroid() {
+                Android.measureRangeOfMotion("onROMCallback");
+                var returnArea = document.getElementById('ret_rom');
+                returnArea.innerHTML = "trantison to ROM...";
+            }
+        </script>
+    </div>
+    <div>
+        <p>Javascript Interface, ResultPDF Printer(PJ-773) TEST</p>
+        <input type="button" value="Print" onClick="printResultByAndroid()" />
+        <p id="ret_printResult">press Print button</p>
+        <script type="text/javascript">
+            function onPrintResultCallback(err) {
+                var returnArea = document.getElementById('ret_printResult');
+                if (null == err) {
+                    returnArea.innerHTML = `Print success.`;
+                } else {
+                    returnArea.innerHTML = `ERROR: ${err}`;
+                }               
+            }
+            function printResultByAndroid() {
+                let idnumber = "ID"
+                Android.printResult(idnumber, "onPrintResultCallback");
+                var returnArea = document.getElementById('ret_printResult');
+                returnArea.innerHTML = "printing...";
+            }
+        </script>
+    </div>
+</body>
+</html>
